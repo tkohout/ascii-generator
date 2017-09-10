@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://www.fio.cz/ib2/transparent?a=2501277007 -->
+<html xmlns="https://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="./page_files/bs_select.min-ver-48D31BCCE684C3E8012F27479890B2BD.css" media="screen, print">
+<script type="text/javascript" src="./page_files/jquery-2.1.1.min-ver-E40EC2161FE7993196F23C8A07346306.js"></script>
+<script type="text/javascript" src="./page_files/bs_select.min-ver-C1B87DE9A72651219420FD1AD8A917E5.js"></script>
+<script type="text/javascript" src="./page_files/wicket-event-jquery.min-ver-7C4C4A31B92F211E7D61B1BF2BA81B39.js"></script>
+<script type="text/javascript" src="./page_files/jquery-ui-1.10.3.min-ver-EC5989164B6776F16D8586D0E8CE0FAC.js"></script>
+<link rel="stylesheet" type="text/css" href="./page_files/jquery-ui-1.10.3.min-ver-731ACB920C9707A160221C521B92C583.css" media="screen">
+<script type="text/javascript" src="./page_files/DatePicker_cs-ver-B53E393FD0791540160DFB834FE263AD.js"></script>
+<script type="text/javascript" src="./page_files/jquery.quicksearch-ver-C3C7D26BA116FACC98845C56ECB13183.js"></script>
+
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="https://www.fio.cz/ib2/wicket/resource/cz.fio.ib2.web.layout.images.Images/favicon-ver-BED52CBBA61C3C2EFBCD2A3F722B3146.ico">
+	<title>Internetové bankovnictví | Fio banka</title>
+	
+
+<link rel="stylesheet" type="text/css" href="./page_files/bs_331.min-ver-3AB3438F85AD9F9E27E1AF1FACF0A9C4.css" media="screen, print">
+<link rel="stylesheet" type="text/css" href="./page_files/fa4-ver-FA6868C22CECA7F65191EC25C68A9BB5.css" media="screen">
+<link rel="stylesheet" type="text/css" href="./page_files/style-ver-76A54D5E800CE7BC6756640465004DD4.css" media="screen">
+<link rel="stylesheet" type="text/css" href="./page_files/print-ver-150FA8C9683C4E7F488E3EE6A8599EAC.css" media="print">
+
+<script>
+function displayInRows(text) {
+
+	var row = document.getElementById("prototype_row"); // find row to copy
+  var tbody = document.getElementById("tbody"); // find table to append to
+	tbody.innerHTML = ""
+  // var rows = tbody.getElementsByTagName("tr")
+  // for (var i = 0; i < rows.length; i++) {
+  // 	var row = rows[i];
+
+  // 	if (row.id != "row") {
+  // 		console.log(row);
+  // 		tbody.removeChild(row);
+  // 	}
+  // }
+	
+	var lines = text.split("\n");
+console.log(lines.length);
+	for (var i = 0; i < lines.length; i++) {
+		var line = lines[i];
+		var clone = row.cloneNode(true); // copy children too
+  	clone.id = null; 
+  	tbody.appendChild(clone); 
+		clone.getElementsByClassName("message")[0].innerHTML = line
+		clone.getElementsByClassName("note")[0].innerHTML = line
+	}
+}
+
+</script>
+
+</head>
+<body cz-shortcut-listen="true" style="">
+	
+	<div class="wrapperPage">
+
+		<div class="container wrapperBody" style="padding-bottom: 69px">
+			<div class="row">
+				<div class="col-lg-12 content" style="min-height: 400px;">
+					<table class="table" id="prototype_table" style="display:none">
+		<tbody id="prototype_tbody">
+			
+				<tr id="prototype_row">
+		
+			<td>10.09.2017</td>
+		
+			<td class="text-right amount amount_value" data-value="0.0100">
+		0,01&nbsp;CZK
+	</td>
+		
+			<td>Platba převodem uvnitř banky</td>
+		
+			<td>Ovčáček, Jiří</td>
+		
+			<td>
+		<div class="message"></div>
+		
+		
+		
+		
+	</td>
+		
+			<td></td>
+		
+			<td></td>
+		
+			<td></td>
+		
+			<td class="note"></td>
+		
+	</tr>
+		</tbody>
+		
+	</table>
+					
+
+<table class="table">
+		<thead>
+			<tr>
+		
+			<th>Datum</th>
+		
+			<th class="text-right">Částka</th>
+		
+			<th>Typ</th>
+		
+			<th>Název protiúčtu</th>
+		
+			<th>Zpráva pro příjemce</th>
+		
+			<th>KS</th>
+		
+			<th>VS</th>
+		
+			<th>SS</th>
+		
+			<th>Poznámka</th>
+		
+	</tr>
+		</thead>
+		<tbody id="tbody">
+		</tbody>
+</table>
+
+
+
+				</div>
+				<!-- konec obsahu -->
+			</div>
+		</div>
+
+	</div>
+</body></html>
