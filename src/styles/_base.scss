@@ -30,3 +30,30 @@ a {
         color: darken($color__brand--primary, 15%);
     }
 }
+
+
+.frame { 
+    width: 100%; height: 1000px; border: 1px solid black;
+    -ms-zoom: $frame__scale;
+    -moz-transform: scale($frame__scale);
+    -moz-transform-origin: 50% 0;
+    -o-transform: scale($frame__scale);
+    -o-transform-origin: 50% 0;
+    -webkit-transform: scale($frame__scale);
+    -webkit-transform-origin: 50% 0;
+}
+
+.small {
+    font-size: 10px;
+    color: grey;
+}
+
+#image-picker {
+    height: 80px;
+    overflow: horizontal;
+}
+
+#image-picker img {
+    height: 80px;
+    margin-right: 10px;
+}

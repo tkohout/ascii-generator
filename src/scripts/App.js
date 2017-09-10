@@ -5,7 +5,7 @@ import CanvasService from './services/CanvasService';
 
 export default class App {
     constructor(options) {
-        this.imageFile = undefined;
+        this.image = undefined;
 
         this.inputFileElement = options.inputFileElement;
         this.inputFilePreviewElement = options.inputFilePreviewElement;
@@ -16,32 +16,39 @@ export default class App {
         this.btnPreset = options.btnPreset;
         this.btnStartElement = options.btnStartElement;
         this.outputElement = options.outputElement;
+        this.exampleElements = options.exampleElements;
 
         this.addInputEventListeners();
         this.setCharacterSetFromPreset(this.getPresets().ascii);
 
         this.btnStartElement.addEventListener('click', () => {
+            console.log("Generate");
             if (!this.isValid()) return;
 
-            this.generateAscii(this.imageFile)
+            this.generateAscii(this.image)
             .then((ascii) => {
-                this.outputElement.innerHTML = this.escapeHtml(ascii);
+                window.document.getElementById("account-page").contentWindow.displayInRows(ascii);
+                // this.outputElement.innerHTML = this.escapeHtml(ascii);
             });
         });
     }
 
     addInputEventListeners() {
+        const previewImage = (image) => {
+            this.inputFilePreviewElement.style.backgroundImage = 'url(' + image.src + ')';
+            this.inputFilePreviewElement.parentNode.classList.add('file-uploader--preview');
+            
+        };
         const handleFile = (file) => {
             this.inputFileElement.parentNode.classList.remove('form__control--error');
 
             ImageFactory.getImageFromFile(file)
             .then((image) => {
-                this.inputFilePreviewElement.style.backgroundImage = 'url(' + image.src + ')';
-                this.inputFilePreviewElement.parentNode.classList.add('file-uploader--preview');
-                this.imageFile = file;
+                previewImage(image);
+                this.image = image;
             })
             .catch((err) => {
-                this.imageFile = undefined;
+                this.image = undefined;
             });
         };
 
@@ -86,6 +93,20 @@ export default class App {
 
         this.inputCharacterSetElement.addEventListener('change', () => this.selectCharacterSet());
         this.inputCharacterSetElement.addEventListener('keyup', () => this.selectCharacterSet());
+        
+        for (let el=0; el<this.exampleElements.length; el++) {
+            if (this.exampleElements[el]) {
+                console.log(el);
+                console.log(this.exampleElements[el]);
+                
+                this.exampleElements[el].addEventListener('click', () => {
+                    var img = this.exampleElements[el].children[0]
+                    console.log(img.src);
+                    previewImage(img);
+                    this.image = img
+                });
+            }
+        }
     }
 
     setCharacterSetFromPreset(characterSet) {
@@ -139,10 +160,8 @@ export default class App {
         context.stroke();
     }
 
-    generateAscii(file) {
+    generateAscii(image) {
         return new Promise((resolve, reject) => {
-            ImageFactory.getImageFromFile(file)
-            .then((image) => {
                 var width = this.inputSizeElement.value,
                     height = (width / image.width) * image.height / this.inputLineHeightElement.value,
                     canvas = CanvasService.getCanvasFromImage(image, width, height),
@@ -163,16 +182,12 @@ export default class App {
                 } else {
                     resolve(AsciiFactory.getAscii(this.characterLightnessSet, imageLightnessData));
                 }
-            })
-            .catch((e) => {
-                console.error(e);
-            });
         });
     }
 
     getPresets() {
         return {
-            ascii: CharacterSetFactory.getCharacterSet(0x20, 0x7E),
+            ascii: ["_", "o"],
 
             // TODO: Add more emoji
             // Source: https://en.wikipedia.org/wiki/Emoji#In_the_Unicode_standard
@@ -195,7 +210,7 @@ export default class App {
     isValid() {
         var isValid = true;
 
-        if (!this.imageFile) {
+        if (!this.image) {
             this.inputFileElement.parentNode.classList.add('form__control--error');
             isValid = false;
         }
@@ -221,7 +236,7 @@ export default class App {
 
 App.FONT_SIZE = 12;
 App.LINE_HEIGHT = {
-    ascii: 1.8,
+    ascii: 10,
     latin: 1.8,
     emoji: 1.2
 };
